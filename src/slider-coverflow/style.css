@@ -1,0 +1,125 @@
+html,
+body {
+  position: relative;
+  height: 100%;
+  background: #fff;
+}
+
+body {
+  background: #fff;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+h5 {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+.swiper {
+  width: 375px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  height: 100% !important;
+  position: relative !important;
+  text-align: center;
+}
+.swiper-wrapper {
+  width: 70% !important;
+  height: 95% !important;
+  padding: 50px !important;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-3d .swiper-slide-shadow-left {
+  background-image: linear-gradient(
+    to left,
+    rgba(61, 126, 232, 0.1),
+    rgba(0, 0, 0, 0)
+  ) !important;
+}
+
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(231, 226, 154, 0.2)
+  ) !important;
+}
+
+.swiper-3d .swiper-slide-active {
+  background-image: linear-gradient(
+    to left,
+    rgba(204, 36, 36, 0.1),
+    rgba(0, 0, 0, 0)
+  ) !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-image: url(https://wowdop.com/svg/logo-rocket-plume.svg);
+  background-size: contain;
+  color: rgb(225, 6, 6) !important;
+  right: 10px;
+  padding: 30px;
+  height: 100% !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  content: " " !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+#bp-768,
+#bp-1024 {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .swiper {
+    width: 768px !important;
+  }
+
+  #bp-768 {
+    display: inline !important;
+  }
+
+  #bp-375,
+  #bp-1024 {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .swiper {
+    width: 1024px !important;
+  }
+
+  #bp-1024 {
+    display: inline !important;
+  }
+
+  #bp-375,
+  #bp-768 {
+    display: none !important;
+  }
+}
