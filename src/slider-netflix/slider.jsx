@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { useState } from "react"
 import { Label } from "../label/label"
 import { successList } from "../label/successList"
@@ -62,6 +63,7 @@ export const SliderNetflix = () => {
                 />
                 <S.Imag width="170" height="160" src={image} alt={name} />
               </S.Main>
+
 
               <S.Hero>
                 <S.Name>{name}</S.Name>

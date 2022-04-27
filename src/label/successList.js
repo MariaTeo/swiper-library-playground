@@ -71,7 +71,6 @@ export const successList = [
    },
    {
      image: "/../public/image/maria-teodora-cotofana.jpg",
-     imageN: "/../../public/image/maria-teodora-cotofana.jpg",
      wasEarning: 24000,
      currently: "Expert Front-End Developer",
      currentlyEarning: 51000,

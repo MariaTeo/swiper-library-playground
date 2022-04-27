@@ -8,9 +8,10 @@ import { SliderNested } from "../slider-nest/slider"
 import { SliderScratch } from "../slider-scratch/slider"
 import { SliderNetflix } from "../slider-netflix/slider"
 import { Carousel, SliderSF } from "../slider-sf/slider"
+import { Imag } from "../imag/imag"
+import { Offers } from "../offers/offers"
 
 export default function Home() {
-
   return (
     <>
       {/* <SLiderulCucului /> */}
@@ -20,9 +21,11 @@ export default function Home() {
       {/* <SliderScratch /> */}
 
       {/* <SwiperCard /> */}
-      <Carousel show={4}>
+      {/* <Carousel show={4}>
         <SliderNetflix />
-      </Carousel>
+      </Carousel> */}
+      {/* <Imag /> */}
+      <Offers />
       {/* <SliderCube /> */}
       {/* <SwiperPara /> */}
     </>

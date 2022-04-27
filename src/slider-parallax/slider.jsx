@@ -73,7 +73,7 @@ export const SwiperPara = () => {
                     alt="member"
                     width={340}
                     height={380}
-                  ></Image>
+                 />
                   {name}
                 </div>
                 <div className="text" data-swiper-parallax="-100">
