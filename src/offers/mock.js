@@ -2,6 +2,7 @@ export const list = {
   offers: [
     {
       price: 0.5,
+      spaces: 50,
       upTo: 25000,
       type: "UI Developer Solo Practice",
       name: {
@@ -13,10 +14,11 @@ export const list = {
       canPairProgram: false,
       daysOfAttendance: 0,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: true}
+      sealDealRecommendation: { paid: true },
     },
     {
       price: 1,
+      spaces: 50,
       upTo: 50000,
       type: "UI Developer Solo Practice And Pre Interview",
       name: {
@@ -28,12 +30,13 @@ export const list = {
       canPairProgram: true,
       daysOfAttendance: 0.5,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: false}
+      sealDealRecommendation: { paid: false },
     },
     {
       price: 1,
+      spaces: 25,
       upTo: 50000,
-      type: "UI Developer Solo Practice",
+      type: "Front End Developer Solo Practice",
       name: {
         practice: true,
         preInterview: false,
@@ -43,12 +46,13 @@ export const list = {
       canPairProgram: false,
       daysOfAttendance: 0,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: true}
+      sealDealRecommendation: { paid: true },
     },
     {
       price: 2,
+      spaces: 25,
       upTo: 100000,
-      type: "UI Developer Solo Practice And Pre Interview",
+      type: "Front End Developer Solo Practice And Pre Interview",
       name: {
         practice: true,
         preInterview: true,
@@ -58,12 +62,13 @@ export const list = {
       canPairProgram: true,
       daysOfAttendance: 1,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: false}
+      sealDealRecommendation: { paid: false },
     },
     {
       price: 2,
+      spaces: 1,
       upTo: 100000,
-      type: "UI Developer Solo Practice",
+      type: "Business Front End Developer Solo Practice",
       name: {
         practice: true,
         preInterview: false,
@@ -73,12 +78,13 @@ export const list = {
       canPairProgram: false,
       daysOfAttendance: 0,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: true}
+      sealDealRecommendation: { paid: true },
     },
     {
       price: 4,
+      spaces: 1,
       upTo: 250000,
-      type: "UI Developer Solo Practice And Pre Interview",
+      type: "Business Front End Developer Solo Practice And Pre Interview",
       name: {
         practice: true,
         preInterview: true,
@@ -88,7 +94,7 @@ export const list = {
       canPairProgram: true,
       daysOfAttendance: 1.5,
       basicRecommendation: true,
-      sealDealRecommendation: { paid: false}
+      sealDealRecommendation: { paid: false },
     },
   ],
   basePrice: 12500,
