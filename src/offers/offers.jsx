@@ -1,7 +1,14 @@
 import { list } from "./mock"
 import * as S from "./offers.style"
-import { Field, Form, Formik } from "formik"
+import { Field, FieldArray, Form, Formik } from "formik"
 import { useState } from "react"
+import {
+  hoursList,
+  investment,
+  hoursPerDay,
+  daysPerWeek,
+  buttons,
+} from "./mock"
 
 const formatCurrency = (amount) =>
   new Intl.NumberFormat("en-GB", {
@@ -11,41 +18,60 @@ const formatCurrency = (amount) =>
   }).format(amount)
 
 export const Offers = () => {
-  const { offers, basePrice, baseEffort, attendanceDays } = list
+  const { offers, basePrice, baseEffort, attendanceDays, baseHoursPpDay } = list
   const [show, hide] = useState(false)
   const [formValues, setFormValues] = useState({})
+  const [value, setRangeValue] = useState(0)
+
+  const showPair = formValues.team === "pair-programming"
 
   const onSubmit = (values) => {
     hide(true)
     setFormValues(values)
+    console.log(values, "------submit-values-----")
   }
-  const showPair = formValues.team === "pair-programming"
-
-  const [value, setRangeValue] = useState(0)
 
   const filteredList = offers
     .filter(
       ({ canPairProgram, spaces }) => canPairProgram === showPair && spaces
     )
     .filter(
+      ({ effortHours }) => effortHours * baseEffort <= formValues.hoursPerWeek
+    )
+    .filter(
       ({ price, canPairProgram }) =>
         price * (canPairProgram ? 0.5 : 1) * basePrice <= value * 25
     )
+    .filter(
+      ({ hoursPpDay }) => hoursPpDay * baseHoursPpDay <= formValues.hoursPpDay
+    )
+    .filter(({ daysOfAttendance }) =>
+      daysOfAttendance * attendanceDays <= (formValues.daysPerWeek * 4.5 > 30)
+        ? "30"
+        : formValues.daysPerWeek * 4.5
+    )
 
-  const stringuri = [
-    50, 150, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000, 1500, 2000,
-    2500,
-  ]
+  console.log(filteredList, "filtered list")
 
   const range = (event, fieldValue) => {
-    setRangeValue(stringuri[event.target.value])
+    setRangeValue(investment[event.target.value])
     fieldValue(event.target.value)
   }
 
   return (
     <>
-      <Formik initialValues={{ upTo: 0, investment: 0 }} onSubmit={onSubmit}>
-        {({ isValid, setFieldValue, handleChange }) => {
+      <Formik
+        initialValues={{
+          investment: 0,
+          team: "",
+          hoursPerWeek: 0,
+          hoursPpDay: 0,
+          daysPerWeek: 0,
+          experience: "",
+        }}
+        onSubmit={onSubmit}
+      >
+        {({ isValid, setFieldValue, handleChange, values }) => {
           return (
             <Form>
               <div>
@@ -53,9 +79,10 @@ export const Offers = () => {
                 about yourself. Do you prefer to regularly team up with at least
                 one more person, or would you rather work alone ?
               </div>
+              <br />
               <Field type="radio" id="alone" name="team" value="alone" />
               <label htmlFor="alone">I am more of a lone wolf</label>
-              <br></br>
+              <br />
 
               <Field
                 type="radio"
@@ -64,15 +91,133 @@ export const Offers = () => {
                 value="pair-programming"
               />
               <label htmlFor="pair">I enjoy pairing up with someone else</label>
+
               <br />
-              {formValues.team && (
+              <br />
+
+              <div>
+                How many hours per week are you willing to put into practice?
+              </div>
+              <br />
+
+              <div>
+                {hoursList.map(({ id, value }, key) => {
+                  return (
+                    <div key={key}>
+                      <Field
+                        type="radio"
+                        name={`hoursPerWeek`}
+                        id={id}
+                        checked={value === +values.hoursPerWeek}
+                        value={+value}
+                      />
+
+                      <label htmlFor={id}>{`${value} hours`}</label>
+                    </div>
+                  )
+                })}
+              </div>
+              <br />
+              <label>
+                Hours per week offers options:{" "}
+                {offers.map(
+                  ({ effortHours }) => effortHours * baseEffort + ", "
+                )}
+              </label>
+
+              <br />
+              <br />
+              <div>
+                How many days per week are you willing to put into practice?
+              </div>
+              <br />
+
+              <div>
+                {daysPerWeek.map(({ id, value }, key) => {
+                  return (
+                    <div key={key}>
+                      <Field
+                        type="radio"
+                        name={`daysPerWeek`}
+                        id={id}
+                        checked={value === +values.daysPerWeek}
+                        value={+value}
+                      />
+
+                      <label htmlFor={id}>{`${value} days`}</label>
+                    </div>
+                  )
+                })}
+              </div>
+              <br />
+              <label>
+                Days of attendancy per month offers options:{" "}
+                {offers.map(
+                  ({ daysOfAttendance }) =>
+                    daysOfAttendance * attendanceDays + ", "
+                )}
+              </label>
+
+              <br />
+              <br />
+              <div>
+                If you were to practice everyday with someone else, how many
+                hours can you guarantee that you will be present?
+              </div>
+              <br />
+
+              {hoursPerDay.map(({ id, value }, key) => {
+                return (
+                  <div key={key}>
+                    <Field
+                      type="radio"
+                      name="hoursPpDay"
+                      id={id}
+                      value={value}
+                      checked={value == values.hoursPpDay}
+                    />
+
+                    <label htmlFor={id}>{`${value} hours`}</label>
+                  </div>
+                )
+              })}
+              <br />
+              <label>
+                Hours of pair programming offers options:
+                {offers.map(
+                  ({ hoursPpDay }) => hoursPpDay * baseHoursPpDay + ", "
+                )}
+              </label>
+
+              <br />
+              <br />
+
+              <label htmlFor="investment">How would you rate us?</label>
+              <br />
+              <S.Flex>
+                {buttons.map(({ value, last }, key) => {
+                  return (
+                    <S.Button last={last} key={key}>
+                      {value}
+                    </S.Button>
+                  )
+                })}
+              </S.Flex>
+              <br />
+              <br />
+
+              {/* {formValues.team && ( */}
+
+              <>
+                <label htmlFor="investment">Investment</label>
+                <br />
                 <Field
                   type="range"
                   id="investment"
                   name="investment"
                   step="1"
-                  min={stringuri.length[0]}
-                  max={stringuri.length - 1}
+                  min={investment.length[0]}
+                  max={investment.length - 1}
                   style={{ width: "500px" }}
                   onChange={(e) => {
                     range(e, setFieldValue)
@@ -81,47 +226,91 @@ export const Offers = () => {
                     handleChange(e)
                   }}
                 />
-              )}
-              <label htmlFor="investment">Investment</label>
+
+                <br />
+                <label id="suma">{formatCurrency(value)}</label>
+                <br />
+              </>
+              {/* )} */}
+
               <br />
-              <label id="suma">{formatCurrency(value)}</label>
-              <br />
-              <label id="suma">{formatCurrency(value * 25)}</label>
+              <label>
+                Investment value in a period of 25 months:
+                {formatCurrency(value * 25)}
+              </label>
               <br />
 
+              <br />
+              <label htmlFor="experience">
+                Do you have prior knowledge in this domaine? If so, please write
+                a brief summary below.
+              </label>
+              <br />
+              <br />
+              <Field
+                type="input"
+                name="experience"
+                value={formValues.experience}
+                style={{
+                  width: "400px",
+                  textOverflow: "ellipsis",
+                  overflow: "auto",
+                }}
+                placeholder=" Please write a brief summary..."
+              />
+
+              <br />
+              <br />
               <button type="submit">Submit</button>
             </Form>
           )
         }}
       </Formik>
+      <br />
 
       {show && (
         <S.Wrap>
-          {filteredList.map(
-            (
-              {
-                price,
-                upTo,
-                type,
-                name,
-                effortType,
-                effortHours,
-                canPairProgram,
-                daysOfAttendance,
-                basicRecommendation,
-                sealDealRecommendation,
-              },
-              key
-            ) => {
-              return (
-                <S.OfferWrap key={key}>
-                  <h1>{type}</h1>
-                  <p>{effortType}</p>
-                  <div>Earn up to: {formatCurrency(upTo)}</div>
-                </S.OfferWrap>
-              )
-            }
-          )}
+          {filteredList
+            .slice(-1)
+            .map(
+              (
+                {
+                  price,
+                  upTo,
+                  type,
+                  name,
+                  effortType,
+                  effortHours,
+                  canPairProgram,
+                  hoursPpDay,
+                  daysOfAttendance,
+                  basicRecommendation,
+                  sealDealRecommendation,
+                },
+                key
+              ) => {
+                return (
+                  <S.OfferWrap key={key}>
+                    <h1>{type}</h1>
+                    <p>
+                      {hoursPpDay * baseHoursPpDay} hours minimin of pair
+                      programming
+                    </p>
+                    <p>{effortType.toUpperCase()}</p>
+                    <div>Earn up to: {formatCurrency(upTo)}</div>
+                    <p>Offer price: {formatCurrency(price * basePrice)}</p>
+
+                    <p>
+                      Minimum {effortHours * baseEffort}h alocated for practice
+                    </p>
+                    <p>
+                      {daysOfAttendance * attendanceDays} days of attendancy
+                      required
+                    </p>
+                  </S.OfferWrap>
+                )
+              }
+            )}
         </S.Wrap>
       )}
     </>
