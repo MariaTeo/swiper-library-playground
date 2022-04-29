@@ -19,13 +19,16 @@ export default function Home() {
       {/* <SliderThumbsApp /> */}
       {/* <SliderNested /> */}
       {/* <SliderScratch /> */}
-
       {/* <SwiperCard /> */}
+
       {/* <Carousel show={4}>
         <SliderNetflix />
       </Carousel> */}
+
       {/* <Imag /> */}
+
       <Offers />
+
       {/* <SliderCube /> */}
       {/* <SwiperPara /> */}
     </>

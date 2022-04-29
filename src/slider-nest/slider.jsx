@@ -68,14 +68,12 @@ export const SliderNested = () => {
                     initialSlide: 1,
                   },
 
-                
                   768: {
                     width: 768,
                     slidesPerView: 1,
                     spaceBetween: 6,
                     initialSlide: 1,
                   },
-
 
                   480: {
                     width: 480,
@@ -161,16 +159,13 @@ export const SliderNested = () => {
         modules={[Thumbs, Pagination]}
         className="mySwiper"
       >
-        {successList.map(
-          ({ image, name }, key) =>
-            console.log(name, "gdhcaiojsfhdjksl") || (
-              <>
-                <SwiperSlide key={key}>
-                  <Image alt={name} src={image} width="400px" height="500px" />
-                </SwiperSlide>
-              </>
-            )
-        )}
+        {successList.map(({ image, name }, key) => (
+          <>
+            <SwiperSlide key={key}>
+              <Image alt={name} src={image} width="400px" height="500px" />
+            </SwiperSlide>
+          </>
+        ))}
       </Swiper>
     </>
   )

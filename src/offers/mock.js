@@ -142,8 +142,22 @@ export const hoursList = [
 ]
 
 export const investment = [
-  50, 150, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000, 1500, 2000,
-  2500,
+  { value: 50, last: false },
+  { value: 150, last: false },
+  { value: 250, last: false },
+  { value: 300, last: false },
+  { value: 350, last: false },
+  { value: 400, last: false },
+  { value: 450, last: false },
+  { value: 500, last: false },
+  { value: 600, last: false },
+  { value: 700, last: false },
+  { value: 800, last: false },
+  { value: 900, last: false },
+  { value: 1000, last: false },
+  { value: 1500, last: false },
+  { value: 2000, last: false },
+  { value: 2500, last: true },
 ]
 
 export const hoursPerDay = [
@@ -194,53 +208,53 @@ export const buttons = [
   {
     id: "one",
     value: 1,
-    last: false,
+    review: false,
   },
   {
     id: "two",
     value: 2,
-    last: false,
+    review: false,
   },
 
   {
     id: "three",
     value: 3,
-    last: false,
+    review: false,
   },
   {
     id: "four",
     value: 4,
-    last: false,
+    review: false,
   },
   {
     id: "five",
     value: 5,
-    last: false,
+    review: false,
   },
   {
     id: "six",
     value: 6,
-    last: false,
+    review: false,
   },
 
   {
     id: "seven",
     value: 7,
-    last: false,
+    review: false,
   },
   {
     id: "eight",
     value: 8,
-    last: false,
+    review: false,
   },
   {
     id: "nine",
     value: 9,
-    last: true,
+    review: true,
   },
   {
     id: "ten",
     value: 10,
-    last: true,
+    review: true,
   },
 ]

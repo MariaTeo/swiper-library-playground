@@ -9,6 +9,10 @@ import {
   daysPerWeek,
   buttons,
 } from "./mock"
+import Button from "../component/button"
+import Flex from "../component/flex"
+import { Spring } from "../slider-spring/slider-spring"
+import { OfferCard } from "../offer-card/offer-card"
 
 const formatCurrency = (amount) =>
   new Intl.NumberFormat("en-GB", {
@@ -28,7 +32,7 @@ export const Offers = () => {
   const onSubmit = (values) => {
     hide(true)
     setFormValues(values)
-    console.log(values, "------submit-values-----")
+    // console.log(values, "------submit-values-----")
   }
 
   const filteredList = offers
@@ -39,10 +43,6 @@ export const Offers = () => {
       ({ effortHours }) => effortHours * baseEffort <= formValues.hoursPerWeek
     )
     .filter(
-      ({ price, canPairProgram }) =>
-        price * (canPairProgram ? 0.5 : 1) * basePrice <= value * 25
-    )
-    .filter(
       ({ hoursPpDay }) => hoursPpDay * baseHoursPpDay <= formValues.hoursPpDay
     )
     .filter(({ daysOfAttendance }) =>
@@ -50,8 +50,12 @@ export const Offers = () => {
         ? "30"
         : formValues.daysPerWeek * 4.5
     )
+  // .filter(
+  //   ({ price, canPairProgram }) =>
+  //     price * (canPairProgram ? 0.5 : 1) * basePrice <= value * 25
+  // )
 
-  console.log(filteredList, "filtered list")
+  // console.log(filteredList, "filtered list")
 
   const range = (event, fieldValue) => {
     setRangeValue(investment[event.target.value])
@@ -91,6 +95,15 @@ export const Offers = () => {
                 value="pair-programming"
               />
               <label htmlFor="pair">I enjoy pairing up with someone else</label>
+
+              <br />
+              <br />
+
+              <Spring formatCurrency={formatCurrency} />
+
+              <OfferCard
+                filteredList={filteredList}
+              />
 
               <br />
               <br />
@@ -194,21 +207,21 @@ export const Offers = () => {
 
               <label htmlFor="investment">How would you rate us?</label>
               <br />
-              <S.Flex>
-                {buttons.map(({ value, last }, key) => {
+              <Flex>
+                {buttons.map(({ value, review }, key) => {
                   return (
-                    <S.Button last={last} key={key}>
+                    <Button width={20} height={20} review={review} key={key}>
                       {value}
-                    </S.Button>
+                    </Button>
                   )
                 })}
-              </S.Flex>
+              </Flex>
               <br />
               <br />
 
               {/* {formValues.team && ( */}
 
-              <>
+              {/* <>
                 <label htmlFor="investment">Investment</label>
                 <br />
                 <Field
@@ -230,7 +243,7 @@ export const Offers = () => {
                 <br />
                 <label id="suma">{formatCurrency(value)}</label>
                 <br />
-              </>
+              </> */}
               {/* )} */}
 
               <br />
@@ -268,51 +281,7 @@ export const Offers = () => {
       </Formik>
       <br />
 
-      {show && (
-        <S.Wrap>
-          {filteredList
-            .slice(-1)
-            .map(
-              (
-                {
-                  price,
-                  upTo,
-                  type,
-                  name,
-                  effortType,
-                  effortHours,
-                  canPairProgram,
-                  hoursPpDay,
-                  daysOfAttendance,
-                  basicRecommendation,
-                  sealDealRecommendation,
-                },
-                key
-              ) => {
-                return (
-                  <S.OfferWrap key={key}>
-                    <h1>{type}</h1>
-                    <p>
-                      {hoursPpDay * baseHoursPpDay} hours minimin of pair
-                      programming
-                    </p>
-                    <p>{effortType.toUpperCase()}</p>
-                    <div>Earn up to: {formatCurrency(upTo)}</div>
-                    <p>Offer price: {formatCurrency(price * basePrice)}</p>
-
-                    <p>
-                      Minimum {effortHours * baseEffort}h alocated for practice
-                    </p>
-                    <p>
-                      {daysOfAttendance * attendanceDays} days of attendancy
-                      required
-                    </p>
-                  </S.OfferWrap>
-                )
-              }
-            )}
-        </S.Wrap>
-      )}
+      {show && <OfferCard filteredList={filteredList} />}
     </>
   )
 }
